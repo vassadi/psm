@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+  <context:annotation-config/>
+
+  <mvc:resources location="/js/" mapping="/js/**"/>
+  <mvc:resources location="/css/" mapping="/css/**"/>
+  <mvc:resources location="/help/" mapping="/help/**"/>
+  <mvc:resources location="/i/" mapping="/i/**"/>
+
+  <mvc:annotation-driven>
+    <mvc:argument-resolvers>
+      <bean class="org.springframework.security.web.method.annotation.CsrfTokenArgumentResolver"/>
+    </mvc:argument-resolvers>
+  </mvc:annotation-driven>
+
+
+  <context:property-placeholder location="classpath:cms.properties"/>
+
+  <bean id="filterMultipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="${max.upload.size}"/>
+  </bean>
+
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/**"/>
+      <bean class="gov.medicaid.interceptors.BannerInterceptor"/>
+    </mvc:interceptor>
+    <mvc:interceptor>
+      <mvc:mapping path="/**"/>
+      <bean class="gov.medicaid.interceptors.FlashMessageInterceptor"/>
+    </mvc:interceptor>
+    <mvc:interceptor>
+      <mvc:mapping path="/**"/>
+      <bean class="gov.medicaid.interceptors.HandlebarsInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+
+  <bean id="RegistrationService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.RegistrationService}</value>
+    </property>
+  </bean>
+  <bean id="ExportService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.ExportService}</value>
+    </property>
+  </bean>
+
+  <bean id="LookupService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.LookupService}</value>
+    </property>
+  </bean>
+
+  <bean id="NotificationService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.NotificationService}</value>
+    </property>
+  </bean>
+
+  <bean id="BusinessProcessService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.BusinessProcessService}</value>
+    </property>
+  </bean>
+
+  <bean id="ProviderApplicationService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.ProviderApplicationService}</value>
+    </property>
+  </bean>
+
+  <bean id="PresentationService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.PresentationService}</value>
+    </property>
+  </bean>
+
+  <bean id="OnboardingService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.OnboardingService}</value>
+    </property>
+  </bean>
+
+  <bean id="ApplicationWebService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.ApplicationWebService}</value>
+    </property>
+  </bean>
+
+  <bean id="BannerService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>java:app/cms-business-process/BannerServiceBean</value>
+    </property>
+  </bean>
+
+  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <value>
+        /login=JSPController
+        /mnLogin=JSPController
+        /system/advanced-search-system-admin=JSPController
+      </value>
+    </property>
+  </bean>
+
+  <context:component-scan
+      base-package="gov.medicaid.controllers" />
+
+  <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+  <bean id="JSPController"
+        class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix">
+      <value>/WEB-INF/pages/</value>
+    </property>
+    <property name="suffix">
+      <value>.jsp</value>
+    </property>
+  </bean>
+
+  <bean id="viewResolver"
+        class="com.github.jknack.handlebars.springmvc.HandlebarsViewResolver">
+    <property name="order" value="1"/>
+    <property name="prefix" value="/templates/"/>
+    <property name="suffix" value=".template.html"/>
+    <property name="failOnMissingFile" value="false"/>
+  </bean>
+
+  <bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <property name="basename">
+      <value>messages</value>
+    </property>
+  </bean>
+
+  <!-- Merged Service Admin Assembly -->
+  <bean id="AgreementDocumentService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.AgreementDocumentService}</value>
+    </property>
+  </bean>
+  <bean id="EventService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.EventService}</value>
+    </property>
+  </bean>
+  <bean id="ScreeningService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.ScreeningService}</value>
+    </property>
+  </bean>
+  <bean id="ProviderTypeService"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>${jndi.ProviderTypeService}</value>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,19 @@
+#webdriver.driver=phantomjs
+webdriver.driver=chrome
+#webdriver.driver=firefox
+serenity.project.name =  Medicare/Medicaid Provider Application Screening Portal
+
+# This needs to be customized to find your installed version of phantom js driver
+phantomjs.binary.path= ../../../phantomjs-2.1.1-linux-x86_64/bin/phantomjs
+
+# Likewise, this should be modified to find the installed version
+# of the chrome driver
+webdriver.chrome.driver=../../../chromedriver
+
+# Set the base URL for the integration tests.
+#
+# Note that the root path of the application, `cms`, will be appended to this
+# URL; that means that if you set http://example.com/foo, the integration tests
+# will go to http://example.com/foo/cms.
+#
+#webdriver.base.url=http://localhost:8080/

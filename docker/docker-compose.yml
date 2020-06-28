@@ -1,0 +1,40 @@
+# This docker-compose file orchestrates the three containers necessary
+# to run the PSM application.
+# This is not production-ready; it is built solely for development.
+# Case in point, no thought has been given to security (e.g. the password 
+# is always'psm').
+
+version: '2'
+services:
+  db:
+    image: postgres:alpine
+    # These environment variables set up a default username and password for the DB; 
+    # there is no need to create them separately with commands.
+    environment:
+      - POSTGRES_USER=psm
+      - POSTGRES_PASSWORD=psm
+      - POSTGRES_DB=psm
+    volumes:
+      - psm-data:/var/lib/postgresql/data
+      - ../psm-app/db:/mnt/psm-app/db
+    expose:
+      - "5432"
+  mail:
+    build: mailcatcher
+    ports:
+      - "1080:80"
+  wildfly:
+    build: wildfly
+    depends_on:
+      - "db"
+      - "mail"
+    ports:
+      - "8443:8443"
+      - "9990:9990"
+      - "8080:8080"
+    volumes:
+      - ../psm-app:/mnt/psm-app
+      - psm-wildfly:/opt/jboss/wildfly
+volumes:
+  psm-data:
+  psm-wildfly:
