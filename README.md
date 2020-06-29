@@ -112,7 +112,7 @@ More information on the challenge can be found
 
 
 ---------------------------------------------------------------------
-SECTION 5: ABOUT & CONTACT
+ABOUT & CONTACT
 ---------------------------------------------------------------------
 EMR Technical Solutions, LLC (EMRTS) is a consulting agency to companies and investors in the MMIS space and to those thinking about joining the challenge to provide MMIS-as-a-Service to carry states through the first half of the 21st Century. [read more](https://emrts.us/about/)  
 
