@@ -109,3 +109,11 @@ project. Work restarted in April 2017.
 
 More information on the challenge can be found
 [here](https://web.archive.org/web/20141111041442/http://www.topcoder.com:80/cms/medicaid-enrollment-portal/).
+
+
+---------------------------------------------------------------------
+SECTION 5: ABOUT & CONTACT
+---------------------------------------------------------------------
+EMR Technical Solutions, LLC (EMRTS) is a consulting agency to companies and investors in the MMIS space and to those thinking about joining the challenge to provide MMIS-as-a-Service to carry states through the first half of the 21st Century. [read more](https://emrts.us/about/)  
+
+[Contact](https://emrts.us/contact/) EMR Technical Solutions
